@@ -3,7 +3,7 @@
 This hands-on project explores the development of a grammar correction system using deep learning. The primary goal is to fine-tune an encoder-decoder model capable of automatically correcting grammatical errors in English sentences. This project serves as an exploratory exercise to apply and reinforce my understanding of encoder-decoder architectures and their applications in natural language processing (NLP) tasks.
 
 
-# Data Source
+## Data Source
 
 For this project, we used the [juancavallotti/multilingual-gec](https://huggingface.co/datasets/juancavallotti/multilingual-gec) dataset available on Hugging Face. This dataset contains approximately **220,000 examples** of grammatically incorrect sentences paired with their corrected versions, spanning multiple languages. The language distribution is as follows:
 
@@ -25,7 +25,7 @@ Below are a few sample entries from the dataset:
 This dataset was generated synthetically using code that introduces common grammatical errors into otherwise correct sentences. The grammatically correct sentences were initially sourced from various open-source datasets, such as **Tatoeba**. A synthetic data generation script then applied specific transformations to create incorrect versions, guided by a catalog of typical grammar mistakes collected from across the internet.
 
 
-# Data Preprocessing
+## Data Preprocessing
 
 The data preprocessing process was straightforward. First, we filtered the dataset to retain only **English** examples. We then cleaned the text by:
 
@@ -37,7 +37,7 @@ After cleaning, we split the dataset into four subsets: **training**, **early st
 
 
 
-# Model Architecture
+## Model Architecture
 
 For our grammar correction task, we used the [Flan-T5 Small](https://huggingface.co/google/flan-t5-sma;;) model from Hugging Face. At the time of building this project, the T5 model family represented one of the state-of-the-art architectures for encoder-decoder tasks, making it a strong choice for this application.
 
@@ -45,7 +45,7 @@ We specifically chose the **Small** version of Flan-T5 due to hardware limitatio
 
 Flan-T5 is an encoder-decoder model pre-trained on a wide range of tasks, making it well-suited for **text-to-text transformations**. This aligns closely with our objective: converting grammatically incorrect sentences into their corrected forms.
 
-# Evaluation Metric
+## Evaluation Metric
 
 To evaluate our model’s performance, we used the **BLEU (Bilingual Evaluation Understudy)** score. BLEU is a widely used metric for assessing the quality of machine-generated text, particularly in tasks like machine translation and text generation. It compares the model-generated text (candidate) to one or more reference texts and outputs a score between **0 and 1**, where a score closer to 1 indicates higher similarity to the reference.
 
@@ -63,7 +63,7 @@ Below is a general interpretation of BLEU scores:
 
 We used this metric to quantitatively assess how well our model corrected grammatical errors in comparison to the ground-truth reference sentences.
 
-# Training Methodology
+## Training Methodology
 
 We trained the model using a batch size of 8. The training process began with hyperparameter tuning on the T5 model to identify the optimal settings. This tuning was conducted using the training, early stopping, and validation datasets. After selecting the best hyperparameters, we fine-tuned the T5 model again on the entire training dataset (including early stopping and validation sets) and finally evaluated its performance on the test set.
 
@@ -77,11 +77,11 @@ The hyperparameter tuning focused on optimizing the number of encoder and decode
 
 In total, we experimented with 4 different configurations sampled from these search spaces. For each combination, the T5 model was fine-tuned on the training set for up to 10 epochs, applying early stopping to prevent overfitting. During early stopping, after each epoch, we evaluated the model on the early stopping set and computed the cross-entropy loss. If the loss did not decrease for more than 2 consecutive epochs, training was halted early. After training, the model was evaluated on the validation set. The best hyperparameter configuration was selected based on the highest BLEU score achieved on the validation data.
 
-# Evaluation 
+## Evaluation 
 
 
 
-# Repository Structure
+## Repository Structure
 
 `grammar_correction_trainer.py`: Contains the Python class for training and evaluating the T5 model.
 `preprocess.py`: Python file for preprocessing the data source.
