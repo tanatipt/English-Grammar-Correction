@@ -23,6 +23,7 @@ def preprocess_df(df : pd.DataFrame) -> pd.DataFrame:
         Returns:
             pd.Series: Preprocessed text column with unwanted characters removed.
         """
+        # Strip whitespace, replace multiple spaces with a single space, and remove unwanted characters
         strip_col = column.str.strip()
         wsr_col = strip_col.str.replace(r"\s+", " ", regex=True)
         bad_punc_col = wsr_col.str.replace(r'"#%&\*\+/<=>@[\\]^{|}~_', '', regex=True)

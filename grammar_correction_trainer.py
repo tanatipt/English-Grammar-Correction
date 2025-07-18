@@ -1,7 +1,6 @@
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer, get_linear_schedule_with_warmup
 from torch.utils.data import  DataLoader
 from nltk.translate.bleu_score import corpus_bleu
-from torch.utils.data import ConcatDataset
 from torch.optim import AdamW
 import torch
 from utils import  set_trainable_layers
@@ -40,7 +39,7 @@ class GrammarCorrectionTrainer:
         self.valid_loader = valid_loader
         self.test_loader = test_loader
         self.full_train_loader = full_train_loader
-        
+
         self.epoch_num = settings.epoch_num
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         
