@@ -71,8 +71,8 @@ The hyperparameter tuning focused on optimizing the number of encoder and decode
 
 | Hyperparameter           | Search Space    |
 |-------------------------|-----------------|
-| Unfrozen Decoder Layers  | 1, 2            |
-| Unfrozen Encoder Layers  | 1, 2            |
+| Unfrozen Decoder Layers  | 0, 1, 2            |
+| Unfrozen Encoder Layers  | 0, 1, 2            |
 | Learning Rate            | 1e-4, 3e-4      |
 
 In total, we experimented with 4 different configurations sampled from these search spaces. For each combination, the T5 model was fine-tuned on the training set for up to 10 epochs, applying early stopping to prevent overfitting. During early stopping, after each epoch, we evaluated the model on the early stopping set and computed the cross-entropy loss. If the loss did not decrease for more than 2 consecutive epochs, training was halted early. After training, the model was evaluated on the validation set. The best hyperparameter configuration was selected based on the highest BLEU score achieved on the validation data.
@@ -83,10 +83,10 @@ In total, we experimented with 4 different configurations sampled from these sea
 
 ## Repository Structure
 
-`grammar_correction_trainer.py`: Contains the Python class for training and evaluating the T5 model.
-`preprocess.py`: Python file for preprocessing the data source.
-`utils.py`: Contains utility function that is used in the project.
-`main.py`: Main file for running the fine-tuning experiments.
-`preprocessed/`: Contains the preprocessed train, early stopping, validation and test dataset.
-`source/`: Contains the raw dataset.
-`results/`: Contains the result of the fine-tuning of the T5 model.
+- `grammar_correction_trainer.py`: Contains the Python class for training and evaluating the T5 model.
+- `preprocess.py`: Python file for preprocessing the data source.
+- `utils.py`: Contains utility function that is used in the project.
+- `main.py`: Main file for running the fine-tuning experiments.
+- `preprocessed/`: Contains the preprocessed train, early stopping, validation and test dataset.
+- `source/`: Contains the raw dataset.
+- `results/`: Contains the result of the fine-tuning of the T5 model.
